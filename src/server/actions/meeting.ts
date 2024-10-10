@@ -13,7 +13,10 @@ export async function createMeeting(
 ) {
     const { success, data } = meetingActionSchema.safeParse(unsafeData)
 
-    if (!success) return { error: true }
+    if (!success) {
+        console.log("success error:", success, "data is :", data);
+        return { error: true }
+    }
 
     const event = await db.query.EventTable.findFirst({
         where: ({ clerkUserId, isActive, id }, { eq, and }) =>
