@@ -14,9 +14,6 @@ import { createEvent, deleteEvent, updateEvent } from "@/server/actions/events";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { useTransition } from "react";
 
-const schema = z.object({
-    name: z.string()
-})
 export default function EventForm({
     event
 }: {

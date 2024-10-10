@@ -3,23 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
-
-const Inter = localFont({
-  src: "./fonts/Inter-Regular.woff",
-  variable: "--font-inter-regular",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,7 +18,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`cn("min-h-screen, bg-background font-sans antialiased", geistMono)`}
+          className={`cn("min-h-screen, bg-background font-sans antialiased")`}
         >
           {children}
         </body>

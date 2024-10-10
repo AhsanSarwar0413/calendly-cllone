@@ -6,6 +6,12 @@ import { addMinutes, areIntervalsOverlapping, isFriday, isMonday, isSaturday, is
 import { fromZonedTime } from "date-fns-tz";
 import { groupBy } from "lodash";
 
+type Availability = {
+    startTime: string,
+    endTime: string,
+    dayOfWeek: (typeof DAYS_OF_WEEK_IN_ORDER)[number]
+}
+
 export async function getValidTimesFromSchedule(timesInOrder: Date[], event: {
     clerkUserId: string,
     durationInMinutes: number
@@ -22,7 +28,7 @@ export async function getValidTimesFromSchedule(timesInOrder: Date[], event: {
 
     if (schedule == null) return [];
 
-    const groupAvailabilities = groupBy(schedule.availabilities, (a: any) => a.dayOfWeek)
+    const groupAvailabilities = groupBy(schedule.availabilities, (a: Availability) => a.dayOfWeek)
 
 
     const eventTimes = await getCalendarEventsTimes(event.clerkUserId, {
