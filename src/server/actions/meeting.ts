@@ -24,11 +24,17 @@ export async function createMeeting(
             ),
     })
 
-    if (event == null) return { error: true }
+    if (event == null) {
+        console.log("error on event is: ", event);
+        return { error: true }
+    }
     const startInTimezone = fromZonedTime(data.startTime, data.timezone)
 
     const validTimes = await getValidTimesFromSchedule([startInTimezone], event)
-    if (validTimes.length === 0) return { error: true }
+    if (validTimes.length === 0) {
+        console.log("error is :", validTimes);
+        return { error: true }
+    }
 
     await createCalendarEvent({
         ...data,
