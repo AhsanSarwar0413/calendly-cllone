@@ -13,10 +13,7 @@ export async function createMeeting(
 ) {
     const { success, data } = meetingActionSchema.safeParse(unsafeData)
 
-    if (!success) {
-        console.log("success error:", success, "data is :", data);
-        return { error: true }
-    }
+    if (!success) return { error: true }
 
     const event = await db.query.EventTable.findFirst({
         where: ({ clerkUserId, isActive, id }, { eq, and }) =>
@@ -27,17 +24,12 @@ export async function createMeeting(
             ),
     })
 
-    if (event == null) {
-        console.log("error on event is: ", event);
-        return { error: true }
-    }
+    if (event == null) return { error: true }
+
     const startInTimezone = fromZonedTime(data.startTime, data.timezone)
 
     const validTimes = await getValidTimesFromSchedule([startInTimezone], event)
-    if (validTimes.length === 0) {
-        console.log("error is :", validTimes);
-        return { error: true }
-    }
+    if (validTimes.length === 0) return { error: true }
 
     await createCalendarEvent({
         ...data,
