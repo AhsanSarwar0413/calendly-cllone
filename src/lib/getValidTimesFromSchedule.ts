@@ -29,7 +29,7 @@ export async function getValidTimesFromSchedule(timesInOrder: Date[], event: {
         with: { availabilities: true }
     })
     
-    consoe.log("schedule", schedule);
+    console.log("schedule", schedule);
     if (schedule == null) return [];
 
     const groupAvailabilities = groupBy(schedule.availabilities, (a: Availability) => a.dayOfWeek)
