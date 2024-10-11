@@ -40,7 +40,7 @@ export async function getValidTimesFromSchedule(timesInOrder: Date[], event: {
         end,
     });
 
-    console.lof("event times:", eventTimes);
+    console.log("event times:", eventTimes);
     return timesInOrder.filter(intervalDate => {
         const availabilities = getAvailabilities(groupAvailabilities, intervalDate, schedule.timezone);
 
