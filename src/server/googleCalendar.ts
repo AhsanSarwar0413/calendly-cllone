@@ -104,7 +104,9 @@ async function getOAuthClient(clerkUserId: string) {
     if (token.data.length === 0 || token.data[0].token == null) {
         return
     }
-    
+    console.log("google client id:", process.env.GOOGLE_OAUTH_CLIENT_ID);
+    console.log("google client secret", process.env.GOOGLE_OAUTH_CLIENT_SECRET);
+    console.log("google redirect URL",  process.env.GOOGLE_OAUTH_REDIRECT_URL);
     const client = new google.auth.OAuth2(
         process.env.GOOGLE_OAUTH_CLIENT_ID,
         process.env.GOOGLE_OAUTH_CLIENT_SECRET,
