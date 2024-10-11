@@ -19,6 +19,8 @@ export async function getCalendarEventsTimes(
         maxResults: 2500,
     })
 
+    console.log("events in google calendar", events);
+
     return events.data.items?.map(event => {
         if (event.start?.date != null && event.end?.date != null) {
             //event is taking the entire day, the entire day is completely filled with event
@@ -91,21 +93,25 @@ export async function createCalendarEvent({
         }
     })
 
+    console.log("calendar event :", calendarEvent.data, "and", "calendar event:", calendarEvent);
+
     return calendarEvent.data;
 }
 
 async function getOAuthClient(clerkUserId: string) {
     const token = await clerkClient().users.getUserOauthAccessToken(clerkUserId, "oauth_google");
-
+    console.log("o auth token:", token);
     if (token.data.length === 0 || token.data[0].token == null) {
         return
     }
-
+    
     const client = new google.auth.OAuth2(
         process.env.GOOGLE_OAUTH_CLIENT_ID,
         process.env.GOOGLE_OAUTH_CLIENT_SECRET,
         process.env.GOOGLE_OAUTH_REDIRECT_URL
     );
+
+    console.log("client is :", client);
 
     client.setCredentials({ access_token: token.data[0].token });
 
