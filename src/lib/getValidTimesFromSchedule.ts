@@ -19,13 +19,17 @@ export async function getValidTimesFromSchedule(timesInOrder: Date[], event: {
     const start = timesInOrder[0];
     const end = timesInOrder.at(-1);
 
+    console.log("start", start);
+    console.log("end", end);
+
     if (start == null || end == null) return [];
 
     const schedule = await db.query.ScheduleTable.findFirst({
         where: ({ clerkUserId: userIdCol }, { eq }) => eq(userIdCol, event.clerkUserId),
         with: { availabilities: true }
     })
-
+    
+    consoe.log("schedule", schedule);
     if (schedule == null) return [];
 
     const groupAvailabilities = groupBy(schedule.availabilities, (a: Availability) => a.dayOfWeek)
@@ -36,7 +40,7 @@ export async function getValidTimesFromSchedule(timesInOrder: Date[], event: {
         end,
     });
 
-
+    console.lof("event times:", eventTimes);
     return timesInOrder.filter(intervalDate => {
         const availabilities = getAvailabilities(groupAvailabilities, intervalDate, schedule.timezone);
 
